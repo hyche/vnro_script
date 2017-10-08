@@ -1,0 +1,268 @@
+niflheim,201,186,4	script	Devil Hunter	4_M_EDEN_GUARDER,{
+	mes "[Devil Hunter]";
+	mes "Xin chào, như ngươi đã biết vì gần đến ngày lễ các linh hồn nên số lượng quái vật bỗng nhiên tăng đột biến.";
+	next;
+	mes "[Devil Hunter]";
+	mes "Điều này có thể dẫn đến việc Midgard trở thành mục tiêu cho bọn chúng tấn công, vì thế ta có một vài nhiệm vụ cho ngươi";
+	next;
+	mes "[Devil Hunter]";
+	mes "Hãy chọn loại quái vật ngươi muốn săn:";
+	switch(select("Deviruchi", "Marionette", "Hylozoist", "Whisper", "Drainliar", "Loli Ruri")) {
+		case 1:
+			mes "[Devil Hunter]";
+			mes "Nhiệm vụ : ";
+			mes "Giết 1000 con Deviruchi";
+			mes "Đem về 1 Deviruchi card";
+			mes "Phần thưởng :";   
+			mes "Costume : Deviruchi Ballon";
+			next;
+			mes "Ngươi sẽ nhận chứ ?";
+			next;
+			switch(select("Nhận", "Trả nhiệm vụ", "Không nhận")) {
+				case 1:
+					if(questactive(30001)){
+						mes "[Devil Hunter]";
+						mes "Ngươi đã nhận nhiệm vụ này";	
+					} else {
+						mes "[Devil Hunter]";
+						mes "Tốt lắm, ta sẽ đợi tin tức của ngươi !";
+						setquest 30001;
+					}
+					close;
+				case 2:
+					if(questprogress(30001, HUNTING) == 2 && countitem(Deviruchi_Card) >= 1) {
+						mes "[Devil Hunter]";
+						mes "Tốt lắm, đúng như yêu cầu, đây là phần thưởng của ngươi !";
+						erasequest 30001;
+						delitem Deviruchi_Card, 1
+						getitem 5227,1;
+					} else if(questprogress(30001, HUNTING) == 1 || countitem(Deviruchi_Card) < 1) {
+						mes "[Devil Hunter]";
+						mes "Vẫn chưa đủ theo yêu cầu, quay lại và tiếp tục đi !";
+					} else {
+						mes "[Devil Hunter]";
+						mes "Nguoi chua nhan nhiem vu nay";
+					}
+					close;
+				case 3:
+					mes "[Devil Hunter]";
+					mes "Tiếc thật ! hẹn ngươi khi khác vậy";
+					close;
+			}
+			close;
+		case 2:
+			mes "[Devil Hunter]";
+			mes "Nhiệm vụ : ";
+			mes "Giết 1000 con Marionette";
+			mes "Đem về 1 Marionette card";
+			mes "Phần thưởng :"; 
+			mes "Costume Chain Puppet";
+			next;
+			mes "Ngươi sẽ nhận chứ ?";
+			next;
+			switch(select("Nhận", "Trả nhiệm vụ", "Không nhận")) {
+				case 1:
+					if(questactive(30002)){
+						mes "[Devil Hunter]";
+						mes "Ngươi đã nhận nhiệm vụ này";	
+					} else {
+						mes "[Devil Hunter]";
+						mes "Tốt lắm, ta sẽ đợi tin tức của ngươi !";
+						setquest 30002;
+					}
+					close;
+				case 2:
+					if(questprogress(30002, HUNTING) == 2 && countitem(Marionette_Card) >= 1) {
+						mes "[Devil Hunter]";
+						mes "Tốt lắm, đúng như yêu cầu, đây là phần thưởng của ngươi !";
+						erasequest 30002;
+						delitem Marionette_Card, 1
+						getitem 5227,1;
+					} else if(questprogress(30002, HUNTING) == 1 || countitem(Marionette_Card) < 1) {
+						mes "[Devil Hunter]";
+						mes "Vẫn chưa đủ theo yêu cầu, quay lại và tiếp tục đi !";
+					} else {
+						mes "[Devil Hunter]";
+						mes "Nguoi chua nhan nhiem vu nay";
+					}
+					close;
+				case 3:
+					mes "[Devil Hunter]";
+					mes "Tiếc thật ! hẹn ngươi khi khác vậy";
+					close;
+			}
+			close;	
+		case 3:
+			mes "[Devil Hunter]";
+			mes "Nhiệm vụ : ";
+			mes "Giết 1000 con Hylozoist";
+			mes "Đem về 1 Hylozoist card";
+			mes "Phần thưởng :";
+			mes "Costume : Niflheim Bunny Hat";
+			next;
+			mes "Ngươi sẽ nhận chứ ?";
+			next;
+			switch(select("Nhận", "Trả nhiệm vụ", "Không nhận")) {
+				case 1:
+					if(questactive(30003)){
+						mes "[Devil Hunter]";
+						mes "Ngươi đã nhận nhiệm vụ này";	
+					} else {
+						mes "[Devil Hunter]";
+						mes "Tốt lắm, ta sẽ đợi tin tức của ngươi !";
+						setquest 30003;
+					}
+					close;
+				case 2:
+					if(questprogress(30003, HUNTING) == 2 && countitem(Hylozoist_Card) >= 1) {
+						mes "[Devil Hunter]";
+						mes "Tốt lắm, đúng như yêu cầu, đây là phần thưởng của ngươi !";
+						erasequest 30003;
+						delitem Hylozoist_Card, 1
+						getitem 5227,1;
+					} else if(questprogress(30003, HUNTING) == 1 || countitem(Hylozoist_Card) < 1) {
+						mes "[Devil Hunter]";
+						mes "Vẫn chưa đủ theo yêu cầu, quay lại và tiếp tục đi !";
+					} else {
+						mes "[Devil Hunter]";
+						mes "Nguoi chua nhan nhiem vu nay";
+					}
+					close;
+				case 3:
+					mes "[Devil Hunter]";
+					mes "Tiếc thật ! hẹn ngươi khi khác vậy";
+					close;
+			}
+			close;		
+		case 4:
+			mes "[Devil Hunter]";
+			mes "Nhiệm vụ : ";
+			mes "Giết 1000 con Whisper";
+			mes "Đem về 1 Whisper card";
+			mes "Phần thưởng :";
+			mes "Costume : Whisper Tall Hat";
+			next;
+			mes "Ngươi sẽ nhận chứ ?";
+			next;
+			switch(select("Nhận", "Trả nhiệm vụ", "Không nhận")) {
+				case 1:
+					if(questactive(30004)){
+						mes "[Devil Hunter]";
+						mes "Ngươi đã nhận nhiệm vụ này";	
+					} else {
+						mes "[Devil Hunter]";
+						mes "Tốt lắm, ta sẽ đợi tin tức của ngươi !";
+						setquest 30004;
+					}
+					close;
+				case 2:
+					if(questprogress(30004, HUNTING) == 2 && countitem(Whisper_Card) >= 1) {
+						mes "[Devil Hunter]";
+						mes "Tốt lắm, đúng như yêu cầu, đây là phần thưởng của ngươi !";
+						erasequest 30004;
+						delitem Whisper_Card, 1
+						getitem 5227,1;
+					} else if(questprogress(30004, HUNTING) == 1 || countitem(Whisper_Card) < 1) {
+						mes "[Devil Hunter]";
+						mes "Vẫn chưa đủ theo yêu cầu, quay lại và tiếp tục đi !";
+					} else {
+						mes "[Devil Hunter]";
+						mes "Nguoi chua nhan nhiem vu nay";
+					}
+					close;
+				case 3:
+					mes "[Devil Hunter]";
+					mes "Tiếc thật ! hẹn ngươi khi khác vậy";
+					close;
+			}
+			close;
+			
+		case 5:
+			mes "[Devil Hunter]";
+			mes "Nhiệm vụ : ";
+			mes "Giết 1000 con Drainliar";
+			mes "Đem về 1 Drainliar card";
+			mes "Phần thưởng :";
+			mes "Costume : Castle Bat";
+			next;
+			mes "Ngươi sẽ nhận chứ ?";
+			next;
+			switch(select("Nhận", "Trả nhiệm vụ", "Không nhận")) {
+				case 1:
+					if(questactive(30005)){
+						mes "[Devil Hunter]";
+						mes "Ngươi đã nhận nhiệm vụ này";	
+					} else {
+						mes "[Devil Hunter]";
+						mes "Tốt lắm, ta sẽ đợi tin tức của ngươi !";
+						setquest 30005;
+					}
+					close;
+				case 2:
+					if(questprogress(30005, HUNTING) == 2 && countitem(Drainliar_Card) >= 1) {
+						mes "[Devil Hunter]";
+						mes "Tốt lắm, đúng như yêu cầu, đây là phần thưởng của ngươi !";
+						erasequest 30005;
+						delitem Drainliar_Card, 1
+						getitem 5227,1;
+					} else if(questprogress(30005, HUNTING) == 1 || countitem(Drainliar_Card) < 1) {
+						mes "[Devil Hunter]";
+						mes "Vẫn chưa đủ theo yêu cầu, quay lại và tiếp tục đi !";
+					} else {
+						mes "[Devil Hunter]";
+						mes "Nguoi chua nhan nhiem vu nay";
+					}
+					close;
+				case 3:
+					mes "[Devil Hunter]";
+					mes "Tiếc thật ! hẹn ngươi khi khác vậy";
+					close;
+			}
+			close;
+			
+		case 6:
+			mes "[Devil Hunter]";
+			mes "Nhiệm vụ : ";
+			mes "Giết 1000 con Loli Ruri";
+			mes "Đem về 1 Loli Ruri card";
+			mes "Phần thưởng :";
+			mes "Costume : Tare Neko Cru";
+			next;
+			mes "Ngươi sẽ nhận chứ ?";
+			next;
+			switch(select("Nhận", "Trả nhiệm vụ", "Không nhận")) {
+				case 1:
+					if(questactive(30006)){
+						mes "[Devil Hunter]";
+						mes "Ngươi đã nhận nhiệm vụ này";	
+					} else {
+						mes "[Devil Hunter]";
+						mes "Tốt lắm, ta sẽ đợi tin tức của ngươi !";
+						setquest 30006;
+					}
+					close;
+				case 2:
+					if(questprogress(30006, HUNTING) == 2 && countitem(Loli_Ruri_Card) >= 1) {
+						mes "[Devil Hunter]";
+						mes "Tốt lắm, đúng như yêu cầu, đây là phần thưởng của ngươi !";
+						erasequest 30006;
+						delitem Loli_Ruri_Card, 1
+						getitem 5227,1;
+					} else if(questprogress(30006, HUNTING) == 1 || countitem(Loli_Ruri_Card) < 1) {
+						mes "[Devil Hunter]";
+						mes "Vẫn chưa đủ theo yêu cầu, quay lại và tiếp tục đi !";
+					} else {
+						mes "[Devil Hunter]";
+						mes "Nguoi chua nhan nhiem vu nay";
+					}
+					close;
+				case 3:
+					mes "[Devil Hunter]";
+					mes "Tiếc thật ! hẹn ngươi khi khác vậy";
+					close;
+			}
+			close;
+	}
+	close;
+}
+

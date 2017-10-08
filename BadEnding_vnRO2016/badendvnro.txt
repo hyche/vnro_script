@@ -1,0 +1,835 @@
+/*
+	vnRO Halloween Event 2016 - Bad Ending
+	Coded by Ugen
+	Idea is from Milen
+*/
+
+
+//===============================================================
+//						PART 1
+//===============================================================
+
+nif_in,168,92,5	script	Black Veil Lady	4_F_SHALOSH,{
+	
+	.@party_id = getcharid(1);
+	.@quest_state = questprogress(30007, PLAYTIME);
+	
+	if (has_instance("lib_in") != "") {  // if the instance exists
+		if (.@quest_state != 1) {	  // the time delay is over or the quest is not set
+			if (.@quest_state == 2)	  // time delay is over
+				erasequest 30007;	  // erase old quest
+			setquest 30007;		  // set new quest
+			BadEnd_Times = 3;		  
+			time_delay = gettimetick(2);	// get the opening time
+			.@deception_key_count = countitem(Cheat_Key); // prevent from spamming key of deception
+			.@pleasure_key_count = countitem(Mirth_Key); // prevent from spamming key of pleasure
+			if (.@deception_key_count > 0)
+				delitem Cheat_Key, .@deception_key_count;
+		 	else if (countitem(Mirth_Key) > 0)
+				delitem Mirth_Key, .@pleasure_key_count;
+		}	
+		mes "[Black Veil Lady]";
+		
+		if (BadEnd_Times > -1) { 
+			mes "Ng??i còn " + BadEnd_Times + " l?n ?i";
+			sleep2 1000;
+			awake("Black Veil Lady");
+			BadEnd_Times--;
+			warp has_instance("lib_in"), 149, 82;
+			
+		} else
+			mes "Ng??i ?ã h?t s? l?n vào";
+			
+		close;
+	} else if (has_instance("lib_in") == "" && .@quest_state == 1) { // the instance doesnt exist but the delay still on going.
+		.@dun_lim_time = time_delay + 259200; // 3 days
+		.@dun_cur_time = gettimetick(2);	   // get the current time
+		.@dun_ent_t = (.@dun_lim_time - .@dun_cur_time);
+		.@dun_h = (.@dun_ent_t / 3600); 
+		.@dun_m = (.@dun_ent_t - (.@dun_h * 3600)) / 60;
+		.@dun_s = .@dun_ent_t - ((.@dun_h * 3600) + (.@dun_m * 60));
+		mes "[Black Veil Lady]";
+		mes "Ng??i ch?a th? vào lúc này hãy quay l?i sau " + .@dun_h + " gi?  " + .@dun_m + " phút " + .@dun_s + " giây";
+		close;
+	}
+	
+	
+	mes "[Black Veil Lady]";
+	mes "Hôn nhân là m?t ?i?u tuy?t v?i, nó g?n k?t hai linh h?n v?i nhau...";
+	next;
+	mes "[Black Veil Lady]";
+	mes "..Nh?ng ng??i có t?ng ngh? ??n ?i?u gì s? x?y ra cho m?t cu?c hôn nhân tan v??";
+	next;
+	mes "[Black Veil Lady]";
+	mes "Nh?ng ngày tháng dài nh? vô t?n, nh?ng n?i ?au không ch?m d?t, nh?ng h?i ?c tan v? nh? chính cu?c hôn nhân ?ó v?y.";
+	next;
+	mes "[Black Veil Lady]";
+	mes "Nh?ng l?i than th? ??y ch?c h?n làm phi?n ng??i? Li?u ng??i còn mu?n nghe ti?p câu chuy?n c?a ta...";
+	if(select("Ch?c ch?n r?i", "Không") == 2) {
+		mes "[Black Veil Lady]";
+		mes "TTh?t ?áng ti?c ! có l? ng??i v?n ch?a xem tr?ng tình c?m c?a mình";
+		close;
+	}
+	
+	if (getpartnerid() == 1) {
+		mes "[Black Veil Lady]";
+		mes "Ta không ngh? v?i m?t k? nh? ng??i s?n sàng ?? nghe câu chuy?n, quay l?i khi nào ng??i có m?t cu?c hôn nhân tan v?.";
+		close;
+	}
+	
+	mes "[Black Veil Lady]";
+	mes "Th?t t?t khi nghe ?i?u ?ó....";
+	next;
+	mes "[Black Veil Lady]";
+	mes "...Ta c?ng ?ã t?ng có m?t cu?c hôn nhân h?nh phúc, nh? bao ng??i khác";
+	next;
+	mes "[Black Veil Lady]";
+	mes "Nh?ng r?i cái h?nh phúc mà ta ngh? mình ?ang có c?ng ch? là t?m bình phong gi? m?o. K? ta t? nh?n là ch?ng th?c ch?t ch? là tên tr?m không h?n không kém.";
+	next;
+	mes "[Black Veil Lady]";
+	mes "Và t?t nhiên, h?n là k? thông minh ?ã ?ánh h?i th?y s? nghi ng? c?a ta. H?n ?ã lên k? ho?ch ??u ??c ta, sau ?ó nh? m?t ? phù th?y ??y linh h?n ta xu?ng Niflheim. R?i cu?m toàn b? tài s?n c?a gia ?ình ta";
+	next;
+	mes "[Black Veil Lady]";
+	mes "?ã 100 n?m trôi qua, ch?a t?ng có ngày nào ta quên ?i ý ??nh báo thù c?a mình, nh?ng r?i ta nh?n ra mình ch? là m?t linh h?n lang thang ? Niflheim b?t l?c.";
+	next;
+	mes "[Black Veil Lady]";
+	mes "Vì v?y, ta s? r?t vui n?u sau khi nghe h?t câu chuy?n, ng??i s? n?y sinh ra ý ??nh giúp ?? ta tr? thù...";
+	if(select(" Ta s? giúp", "Không") == 2) {
+		mes "[Black Veil Lady]";
+		mes "V?y c?ng ???c, hãy tìm ta khi ng??i ??i ý.";
+		close;
+	}
+		
+	if (getcharid(1) == 0 || !instance_check_party(getcharid(1), 6)) {
+		mes "[Black Veil Lady]";
+		mes "... Th?t t?t, hãy qua l?i ?ây v?i m?t nhóm t?i ?a 6 ng??i. Ta s? m? cánh c?a ??a ng??i ??n ch? ? c?a h?n ta !!";
+		close;
+	}
+	mes "[Black Veil Lady]";
+	mes "?ây là nhóm ng??i c?a ng??i sao ? V?y ?ã s?n sàng lên ???ng ch?a ?";
+	if(select("R?i", "V?n ch?a") == 2) {
+		next;
+		mes "[Black Veil Lady]";
+		mes "Hãy nói ta bi?t khi nào ng??i s?n sàng.";
+		close;
+	}
+		
+		
+	if (getcharid(0) != getpartyleader(.@party_id, 2)) {
+		next;
+		mes "[Black Veil Lady]";
+		mes "Ch? có ch? party m?i có th? ch?p nh?n";
+		close;
+	}
+	mes "[Black Veil Lady]";
+	mes "T?t l?m, ta s? d?ch chuy?n các ng??i ??n tòa nhà, hãy c?n th?n v?i b?n lính gác và b?y";
+	.@instance = instance_create("Library", .@party_id); 
+	if( .@instance < 0 ) {
+		next;
+		mes "[Black Veil Lady]";
+		mes "Ng??i ch?a th? vào, hãy quay l?i vào lúc khác";
+		close;
+	}
+		
+	if( instance_attachmap("lib_in", .@instance, true, .@party_id + "|Library") == "" ) {
+ 		next;	
+		instance_destroy(.@instance);
+		mes "Failed to attach Library as a map!";
+		close;
+	}
+		
+	setquest 30007;		  // set new quest for party leader in order to prevent from spamming instance
+	BadEnd_Times = 3;		  
+	time_delay = gettimetick(2);	// get the opening time
+	.@deception_key_count = countitem(Cheat_Key); // prevent from spamming key of deception
+	.@pleasure_key_count = countitem(Mirth_Key); // prevent from spamming key of pleasure
+	if (.@deception_key_count > 0)
+		delitem Cheat_Key, .@deception_key_count;
+	else if (countitem(Mirth_Key) > 0)
+		delitem Mirth_Key, .@pleasure_key_count;
+	instance_attach(.@instance);
+	instance_set_timeout(3600, 300, .@instance); // duration: 60 mins, 5mins to destroy the instance
+	instance_init(.@instance);
+	close;
+	end;
+	
+}
+
+
+//Chuong
+lib_in,151,109,0	script	Chuông	HIDDEN_NPC,{
+	mes "[Chuông]";
+	mes "B?m vào chuông ?? g?i ti?p tân!";
+	if(select("B?m", "Không B?m") == 2){
+		mes "Khong có gì x?y ra";
+		close;
+	}
+	close2;
+
+	if ('chuong_called == true) { // prevent from multiple talks, see below for mor info
+		end;
+	}
+	'chuong_called = true;
+	instance_announce instance_id(), "Ha ha !! Ngu ng?c, không ng? các ng??i có th? m?c b?y d? dàng ??n th?", bc_map;
+	initnpctimer;
+	end;
+OnTimer1000:
+	stopnpctimer;
+	instance_announce instance_id(), "Gi? thì ??ng hòng l?y ???c gì t? ta, chu?n b? ch?t ?i !?", bc_map;
+	callfunc "Library_Monster",
+		   1,
+		   instance_mapname("lib_in"),
+		   instance_npcname(strnpcinfo(NPC_NAME))+"::OnMyMobDead";
+	end;
+OnTimer2000:
+	stopnpctimer;
+	instance_announce instance_id(), "??ng t??ng m?i th? d? dàng nh? v?y! ?ây ch? là màn chào h?i thôi!?", bc_map;
+	callfunc "Library_Monster",
+		   2,
+		   instance_mapname("lib_in"),
+		   instance_npcname(strnpcinfo(NPC_NAME))+"::OnLastMobDead";
+	
+	end;
+OnMyMobDead:
+	.@mob_dead_num = mobcount(instance_mapname("lib_in"), instance_npcname(strnpcinfo(NPC_NAME))+"::OnMyMobDead");
+	if (.@mob_dead_num < 1) {
+		startnpctimer;
+	}
+	end;
+OnLastMobDead:
+	.@mob_dead_num = mobcount(instance_mapname("lib_in"), instance_npcname(strnpcinfo(NPC_NAME))+"::OnLastMobDead");
+	if (.@mob_dead_num < 1) {
+		instance_announce instance_id(), "C?a vào phòng ??c sách h??ng 9h ?ã m?!?", bc_map|bc_blue;
+		donpcevent instance_npcname("RL1Warp")+"::OnEnable";
+	}
+	end;
+}
+
+
+lib_in,133,98,0	script	RL1Warp	WARPNPC,2,2,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(NPC_NAME));
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(NPC_NAME));
+	donpcevent instance_npcname("LR1Warp")+"::OnEnable";
+	end;
+OnTouch:
+	warp instance_mapname("lib_in"),58,215;
+	end;
+}
+
+lib_in,62,215,0	script	LR1Warp	WARPNPC,2,2,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(NPC_NAME));
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(NPC_NAME));
+	end;
+OnTouch:
+	warp instance_mapname("lib_in"),137,98;
+	end;
+}
+
+//=============================================================
+//						PART 2
+//=============================================================
+
+lib_in,58,239,0	script	Lady Spirit#LS1	4_NFWISP,{
+	mes "[Lady Spirit]";
+	mes "H?n ta là k? r?t ranh mãnh, hãy ?i tìm 2 chi?c chìa khóa c?a h?n.";
+	mes "Và c?m vào ? khóa trên chi?c c?t gi?a phòng trung tâm, ngu?n n?ng l??ng c?a h?n s? t?t và h?n s? hi?n nguyên hình.";
+	close2;
+	hideonnpc instance_npcname(strnpcinfo(NPC_NAME)); 		//hide npc not disable in order to call mobs
+	donpcevent instance_npcname("K? sách#0")+"::OnEnable";
+	donpcevent instance_npcname("K? sách#1")+"::OnEnable";
+	donpcevent instance_npcname("K? sách#2")+"::OnEnable";
+	donpcevent instance_npcname("K? sách#3")+"::OnEnable";
+	donpcevent instance_npcname("Cu?n sách#4")+"::OnEnable";
+	donpcevent instance_npcname("Cu?n sách#5")+"::OnEnable";
+	donpcevent instance_npcname("Cu?n sách#6")+"::OnEnable";
+	end;
+OnCallMobs:
+	if ('ls1_called == true) // Prevent from talking muptiple times
+		end;
+	.@call = 1;
+	for(.@i=0; .@i < 7; ++.@i) {
+		if('NPC_TALKED[.@i] == 0)
+			.@call = 0;
+	}
+	if (.@call == 1) {// 3 books and 4 bookshelves are activated
+		initnpctimer;
+		'ls1_called = true;
+	}
+	end;
+OnTimer1000:
+	instance_announce instance_id(), "Các ng??i th?t s? cho r?ng con ? ?ó s? giúp các ng??i tìm ra ta sao !? Haha !", bc_map;
+	end;
+OnTimer2000:
+	instance_announce instance_id(), " Ngu ng?c ! C? g?ng c?a các ng??i xem ra ch? ??n ?ây thôi,", bc_map;
+	end;
+OnTimer3000:
+	instance_announce instance_id(), " Gi? thì s?n sàng ch?u ch?t ?i !!?", bc_map;
+	stopnpctimer;
+	callfunc "Library_Monster",
+		   3,
+		   instance_mapname("lib_in"),
+		   instance_npcname(strnpcinfo(NPC_NAME))+"::OnMyMobDead";
+	end;
+OnTimer4000:
+	instance_announce instance_id(), "Hera : E hèm !! ??ng nh?p ti?c mà thi?u m?t ta ch? !?", bc_map;
+	callfunc "Library_Monster",
+		   4,
+		   instance_mapname("lib_in"),
+		   "";
+	end;
+OnMyMobDead:
+	.@mob_dead_num = mobcount(instance_mapname("lib_in"), instance_npcname(strnpcinfo(NPC_NAME))+"::OnMyMobDead");
+	if(.@mob_dead_num < 1)
+		startnpctimer;
+		
+	end;
+}
+
+lib_in,142,102,0,	script	L? khóa	HIDDEN_NPC,{
+	mes "[L? khóa]";
+	mes "M?t chi?c l? khóa có ghi hàng ch? \"Deception\"";
+	if(select("C?m chìa khóa vào", "B? qua") == 2 ) close;
+	
+	if (countitem(Cheat_Key) > 0) {
+		delitem Cheat_Key, 1;
+		instance_announce instance_id(), "C?a vào th? phòng h??ng 3h ?ã m?", bc_map|bc_blue;
+		donpcevent instance_npcname("LR2Warp")+"::OnEnable";
+	}
+	else if (countitem(Mirth_Key) > 0) {
+		delitem Mirth_Key, 1;
+		initnpctimer;
+	}
+	else {
+		mes "[L? khóa]";
+		mes "Không có chi?c chìa khóa nào trên ng??i c?.";
+	}
+	close;
+OnTimer100:
+	instance_announce instance_id(), "AAAAAAAARRRGGGGHHHH!!!", bc_map;
+	end;
+OnTimer1000:
+	instance_announce instance_id(), " Ta không ngh? r?ng các ng??i l?i có th? làm ???c ! ch?t ti?t ! ch?t ti?t !", bc_map;
+	end;
+OnTimer2000:
+	stopnpctimer;
+	disablenpc instance_npcname("LR1Warp");
+	disablenpc instance_npcname("LR2Warp");
+	disablenpc instance_npcname("RL1Warp");
+	disablenpc instance_npcname("RL2Warp");
+
+	instance_announce instance_id(), " ??ng hòng ta s? ?? cho các ng??i s?ng sót kh?i ?ây !!", bc_map;
+	callfunc "Library_Monster",
+	        7,
+		   instance_mapname("lib_in"),
+		   "";
+	end;
+
+}
+
+lib_in,166,99,0	script	LR2Warp	WARPNPC,2,2,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(NPC_NAME));
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(NPC_NAME));
+	donpcevent instance_npcname("RL2Warp")+"::OnEnable";
+	end;
+OnTouch:
+	warp instance_mapname("lib_in"),211,190;
+	end;
+}
+
+lib_in,207,190,0	script	RL2Warp	WARPNPC,2,2,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(NPC_NAME));
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(NPC_NAME));
+	end;
+OnTouch:
+	warp instance_mapname("lib_in"),162,99;
+	end;
+}
+
+//=================================================================
+//					PART 3
+//=================================================================
+
+lib_in,212,191,0	script	Lady Spirit#LS2	4_NFWISP,1,1,{
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname(strnpcinfo(NPC_NAME));
+	end;
+OnTouch:
+	if ('ls2_touch == true)
+		end;
+	hideoffnpc instance_npcname(strnpcinfo(NPC_NAME));
+	'ls2_touch = true;
+	npctalk "Hãy c?n th?n khi ?i qua nh?ng k? sách, xung quanh ?ây r?t nhi?u b?y. Ng??i có th? vô hi?u hóa b?ng cách rút chi?c chìa khóa ? cu?i phòng.";
+	initnpctimer;
+	end;
+OnTimer3000:
+	stopnpctimer;
+	hideonnpc instance_npcname(strnpcinfo(NPC_NAME));
+	end;
+}
+
+lib_in,215,216,0	script	Chìa khóa	HIDDEN_NPC,1,1,{
+	mes "B?n không th? rút chìa khóa t? xa nh? v?y ???c";
+	close;
+OnTouch_:
+	if ('key_touched == true)
+		end;
+	mes "M?t chi?c chìa khóa ?ang c?m trong ? khóa";
+	if (select("Rút ra", "B? qua") == 2)
+		close;
+	getitem Mirth_Key, 1;
+	'key_touched = true;
+	initnpctimer;
+	close;
+OnTimer500:
+	instance_announce instance_id(), "Toàn b? b?y ?ã b? vô hi?u hóa", bc_map|bc_blue;
+	.@num_trapx = 20;
+	.@num_trapy = 5;
+	.@num_trapz = 9;
+	for(.@i = 0; .@i < .@num_trapx; ++.@i) { // disable all of trapx
+		disablenpc instance_npcname("TrapX#"+.@i);
+	}
+	for(.@i = 0; .@i < .@num_trapy; ++.@i) { // disable all of trapy
+		disablenpc instance_npcname("TrapY#"+.@i);
+	}
+	for(.@i = 0; .@i < .@num_trapz; ++.@i) { // disable all of trapz
+		disablenpc instance_npcname("TrapZ#"+.@i);
+	}
+	end;
+OnTimer1500:
+	instance_announce instance_id(), "Lilith : ?y ?y xem kìa, l? chu?t ?ã dính b?y r?i.", bc_map;
+	end;
+OnTimer2500:
+	instance_announce instance_id(), "Lilith : Gi? thì không ai có th? giúp các ng??i n?a ?âu !?", bc_map;
+	stopnpctimer;
+	callfunc "Library_Monster",
+	        5,
+		   instance_mapname("lib_in"),
+		   instance_npcname(strnpcinfo(NPC_NAME))+"::OnMyMobDead";
+	end;
+OnTimer3500:
+	stopnpctimer;
+	instance_announce instance_id(), "Lilith : H? ??ng ! Vô d?ng ! ?? ta ph?i ra tay sao !???", bc_map;
+	callfunc "Library_Monster",
+		   6,
+		   instance_mapname("lib_in"),
+		   "";
+	end;
+OnMyMobDead:
+	.@mob_dead_num = mobcount(instance_mapname("lib_in"), instance_npcname(strnpcinfo(NPC_NAME))+"::OnMyMobDead");
+	if(.@mob_dead_num < 1)
+		startnpctimer;
+	end;
+}
+
+//=================================================================
+//				Core functions
+//=================================================================
+
+function	script	Library_Monster	{
+	.@cs = getarg(0);
+	.@mapname$ = getarg(1);
+	.@label$ = getarg(2);
+	switch(.@cs) {
+		case 1: 
+			areamonster .@mapname$,141,101,160,93,"Sword Guardian",1829,2,.@label$;
+			areamonster .@mapname$,141,101,160,93,"Bow Guardian",1830,2,.@label$;
+			break;
+		case 2:
+			areamonster .@mapname$,141,101,160,93,"Sword Guardian",1829,2,.@label$;
+			areamonster .@mapname$,141,101,160,93,"Bow Guardian",1830,2,.@label$;
+			areamonster .@mapname$,141,101,160,93,"Abysmal Knight",1219,4,.@label$;
+			areamonster .@mapname$,141,101,160,93,"Bloody Knight",1268,4,.@label$;
+			areamonster .@mapname$,141,101,160,93,"Raydric",1163,4,.@label$;
+			break;
+		case 3:
+			areamonster .@mapname$,59,217,40,206,"Fire Knight",3323,1,.@label$;
+			areamonster .@mapname$,59,217,40,206,"Ice Knight",3324,1,.@label$;
+			areamonster .@mapname$,59,217,40,206,"Stone Knight",3325,1,.@label$;
+			areamonster .@mapname$,59,217,40,206,"Light Knight",3326,1,.@label$;
+			areamonster .@mapname$,59,217,40,206,"Dark Knight",3327,1,.@label$;
+			break;
+		case 4:
+			monster .@mapname$,49,241,"Hera",3332,1,.@label$;
+			break;
+		case 5:
+			areamonster .@mapname$,233,199,212,182,"Fire Knight",3323,1,.@label$;
+			areamonster .@mapname$,233,199,212,182,"Ice Knight",3324,1,.@label$;
+			areamonster .@mapname$,233,199,212,182,"Stone Knight",3325,1,.@label$;
+			areamonster .@mapname$,233,199,212,182,"Light Knight",3326,1,.@label$;
+			areamonster .@mapname$,233,199,212,182,"Dark Knight",3327,1,.@label$;
+			break;
+		case 6:
+			monster .@mapname$,224,191,"Lilith",3331,1,.@label$;
+			break;
+		case 7:
+			monster .@mapname$,149,105,"Kades",2255,1,.@label$;
+			break;
+		case 99:
+			areamonster .@mapname$,141,101,160,93,"Fire Knight",1002,1,.@label$;
+			break;
+	}
+	return;
+}
+
+function	script	doStatus	{  // function do bad status from traps to players
+	.@time_effect = getarg(0);
+	.@rates = getarg(1);
+	.@status[0] = SC_STONE;
+	.@status[1] = SC_CONFUSION;
+	.@status[2] = SC_CURSE;
+	.@status[3] = SC_SILENCE;
+	.@status[4] = SC_BLOODING;
+	.@status[5] = SC_POISON;
+	.@status[6] = SC_SLEEP;
+	.@status[7] = SC_FREEZE;
+	.@status[8] = SC_COMA;
+	.@status[9] = SC_BLIND;
+	
+	.@status_num = 11;
+	.@num = rand(.@status_num);
+	getmapxy(.@mapname$, .@X, .@Y, UNITTYPE_PC, instance_npcname(strnpcinfo(NPC_NAME)));
+	if (.@num == 10)
+		percentheal -100, 0;
+	else
+		sc_start .@status[.@num], .@time_effect, 0, .@rates;
+	return;
+}
+
+
+
+//============================================================
+//					Fake NPCs
+//============================================================
+-	script	K? sách::BSDup	HIDDEN_NPC,{
+	mes "[K? sách]";
+	mes "M?t k? sách v?i vài cu?n sách kì l?";
+	if(select("Tìm ki?m", "B? qua") == 1) {
+		mes "Không có gì ngoài nh?ng trang gi?y nhàu nát";
+		'NPC_TALKED[atoi(strnpcinfo(NPC_NAME_HIDDEN))] = 1;
+		donpcevent instance_npcname("Lady Spirit#LS1")+"::OnCallMobs";
+	}
+	close;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(NPC_NAME));
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(NPC_NAME));
+	end;
+}
+
+-	script	Cu?n sách::BDup	HIDDEN_NPC,{
+	mes "[Cu?n sách]";
+	mes "M?t cu?n sách ?ang m? nh? che gi?u gì ? d??i...";
+	if(select("Tìm ki?m", "B? qua") == 1){
+		mes "Phía d??i ch? là m?t bàn g?";
+		mes strnpcinfo(NPC_NAME);
+		'NPC_TALKED[atoi(strnpcinfo(NPC_NAME_HIDDEN))] = 1;
+		donpcevent instance_npcname("Lady Spirit#LS1")+"::OnCallMobs";
+	}
+	close;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(NPC_NAME));
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(NPC_NAME));
+	end;
+}
+
+-	script	TrapX::TXDup	FAKE_NPC,0,0,{
+	end;
+OnInstanceInit:
+	for(;1==1;) {
+		.@X = rand(214, 222);
+		.@Y = rand(182, 200);
+		if(checkcell(instance_mapname("lib_in"), .@X, .@Y, cell_chkpass)) {
+			unitwarp getnpcid(0, instance_npcname(strnpcinfo(NPC_NAME))), instance_mapname("lib_in"),.@X, .@Y;
+			break;
+		}
+	}
+	end;
+OnTouch:
+	callfunc "doStatus", 20000, 0, 10000;
+	end;
+}
+
+lib_in,218,191,0	script	TrapXController	FAKE_NPC,4,9,{	// A NPC that is in the center of all Trap X, this must appear to activate all the trapX
+	end;
+OnTouch:
+	end;
+}
+
+-	script	TrapY::TYDup	FAKE_NPC,0,0,{
+	end;
+OnInstanceInit:
+	for(;1==1;) {
+		.@X = rand(224, 228);
+		.@Y = rand(199, 203);
+		if(checkcell(instance_mapname("lib_in"), .@X, .@Y, cell_chkpass)) {
+			unitwarp getnpcid(0, instance_npcname(strnpcinfo(NPC_NAME))), instance_mapname("lib_in"),.@X, .@Y;
+			break;
+		}
+	}
+	end;
+OnTouch:
+	callfunc "doStatus", 20000, 0, 10000;
+	end;
+}
+
+lib_in,226,201,0	script	TrapYController	FAKE_NPC,2,2,{	// A NPC that is in the center of all Trap Y, this must appear to activate all the trapY
+	end;
+OnTouch:
+	end;
+}
+
+-	script	TrapZ::TZDup	FAKE_NPC,0,0,{
+	end;
+OnInstanceInit:
+	for(;1==1;) {
+		.@X = rand(210, 234);
+		.@Y = rand(206, 208);
+		if(checkcell(instance_mapname("lib_in"), .@X, .@Y, cell_chkpass)) {
+			unitwarp getnpcid(0, instance_npcname(strnpcinfo(NPC_NAME))), instance_mapname("lib_in"),.@X, .@Y;
+			break;
+		}
+	}
+	end;
+OnTouch:
+	callfunc "doStatus", 20000, 0, 10000;
+	end;
+}
+
+lib_in,222,207,0	script	TrapZController	FAKE_NPC,12,1,{	// A NPC that is in the center of all Trap Z, this must appear to activate all the trapZ
+	end;
+OnTouch:
+	end;
+}
+
+//========================================================
+//					PART 4
+//				( Enchantment )
+//========================================================
+nif_in,170,87,3,	script	Acient Ghost	8_DOPPEL,{
+	mes "[Ancient Ghost]";
+	mes "Ta sẽ enchant Key Of Illusion mà ngươi kiếm được.";
+	mes "Có 4 lần enchant, mỗi lần enchant sẽ tốn mất 3 Spritual Whisper";
+	next;
+	mes "[Ancient Ghost]";
+	mes "Ngươi có thể đổi 100 Spritual Whisper lấy 1 Key Of Illusion";
+	mes "Nếu như kết quả không như mong đợi, ngươi có thể tẩy điểm và enchant lại từ đầu và mất 30 Spritual Whisper.";
+	mes "Và cuối cùng, ngươi phải trang bị duy nhất 1 Key Of Illusion để được enchant.";
+	next;
+	mes "[Ancient Ghost]";
+	mes "Thế nào ?";
+	.@opt = select("Tôi muốn enchant slot 1", "Tôi muốn enchant slot 2", "Tôi muốn enchant slot 3", "Tôi muốn enchant slot 4", "Tôi muốn tẩy thuộc tính", "Bỏ qua");
+	if (.@opt == 6) {
+		next;
+		mes "[Ancient Ghost]";
+		mes "Hẹn gặp lại sau";
+	}
+	else if(.@opt == 1)
+		callsub Enchant,0;
+	else if (.@opt == 2)
+		callsub Enchant,1;
+	else if (.@opt == 3)
+		callsub Enchant,2;
+	else if (.@opt == 4)
+		callsub Enchant,3;
+	else if (.@opt == 5) {
+		callsub Check_Reset;
+		callsub Ready;
+		delitem Virtual_Key, 1;
+		delitem Whisper_Of_Soul, 30;
+		getitem Virtual_Key, 1;
+	}		
+	
+	next;
+	mes "[Ancient Ghost]";
+	mes "Đã xong, của ngươi đây. Hẹn gặp lại";
+	close;
+	end;
+Enchant:
+	if (countitem(Whisper_Of_Soul) < 3) {
+		next;
+		mes "[Ancient Ghost]";
+		mes "Cần có ít nhất 3 Spritual Whisper";
+		close;
+	}
+	if (countitem(Virtual_Key) < 1) {
+		next;
+		mes "[Ancient Ghost]";
+		mes "Không có Key Of Illusion để enchant";
+		close;
+	}
+	if (countitem(Virtual_Key) > 1) {
+		next;
+		mes "[Ancient Ghost]";
+		mes "Ngươi đang mang hơn 1 Key Of Illusion trong người";
+		close;
+	}
+	
+	.@enchant_select = getarg(0);
+	.@acc_id_l = getequipid(EQI_ACC_L);
+	.@acc_id_r = getequipid(EQI_ACC_R);
+	if ((.@acc_id_l != 6267 && .@acc_id_r == 6267) || (.@acc_id_l == 6267 && .@acc_id_r != 6267)) {
+		if (.@acc_id_l == 6267) 
+			setarray .@equip_card[0], getequipcardid(EQI_ACC_L,0),getequipcardid(EQI_ACC_L,1),getequipcardid(EQI_ACC_L,2),getequipcardid(EQI_ACC_L,3);
+		else 
+			setarray .@equip_card[0], getequipcardid(EQI_ACC_R,0),getequipcardid(EQI_ACC_R,1),getequipcardid(EQI_ACC_R,2),getequipcardid(EQI_ACC_R,3);		
+		
+		next;
+		if (.@equip_card[.@enchant_select] != 0) {
+			next;
+			mes "[Ancient Ghost]";
+			mes "Vị trí này đã được enchant";
+			close;
+		}
+	}
+	else {
+		next;
+		mes "[Ancient Ghost]";
+		mes "Ngươi phải trang bị duy nhất 1 Key Of Illusion.";
+		close;
+	}
+	
+	next;
+	mes "[Ancient Ghost]";
+	mes "Hãy chọn 1 trong cái thuộc tính sau đây";
+	switch(.@enchant_select) {
+	case 0:
+		.@enchant_status = select("STR 1~3", "AGI 1~3", "VIT 1~3", "DEX 1~3", "INT 1~3", "LUK 1~3");
+		switch(.@enchant_status) {
+			case 1: setarray .@stat[0], 4700, 4701, 4702; break;
+			case 2: setarray .@stat[0], 4730, 4731, 4732; break;
+			case 3: setarray .@stat[0], 4740, 4741, 4742; break;
+			case 4: setarray .@stat[0], 4720, 4721, 4722; break;
+			case 5: setarray .@stat[0], 4710, 4711, 4712; break;
+			case 6: setarray .@stat[0], 4750, 4751, 4752; break;
+			default: break;
+		}
+		//.@enchant = .@stat[rand(0,3)];
+		break;
+	case 1:
+		.@enchant_status = select("DEF 1~3", "MDEF 1~2");
+		switch(.@enchant_status) {
+			case 1:  setarray .@stat[0], 4788, 4789, 4790; break;
+			case 2: setarray .@stat[0], 4786, 4787; break;
+		}
+		break;
+	case 2:
+		.@enchant_status = select("%ATK 1~5", "%MATK 1~4");
+		switch(.@enchant_status) {
+			case 1: setarray .@stat[0], 4791, 4766, 4767, 4792, 4793; break;
+			case 2: setarray .@stat[0], 4760, 4761, 4793, 4795; break;
+		}
+		break;
+	case 3:
+		.@enchant_status = select("%HP 1~5", "%SP 1~5");
+		switch(.@enchant_status) {
+			case 1: setarray .@stat[0], 4796, 4797, 4798, 4799, 4800; break;
+			case 2: setarray .@stat[0], 4801, 4802, 4803, 4804, 4805; break;
+		}
+		break;
+	}
+	callsub Ready;
+	.@size = getarraysize(.@stat);
+	.@enchant = .@stat[rand(.@size)];
+	.@equip_card[.@enchant_select] = .@enchant; // replace
+	specialeffect2 EF_REPAIRWEAPON;
+	delitem Virtual_Key,1;
+	delitem Whisper_Of_Soul,3;
+	getitem2 Virtual_Key,1,1,0,0,.@equip_card[0],.@equip_card[1],.@equip_card[2], .@equip_card[3];
+	return;
+Check_Reset:
+	if (countitem(Whisper_Of_Soul) < 30 || countitem(Virtual_Key) != 1) {
+		next;
+		mes "[Ancient Ghost]";
+		mes "Cần có ít nhất 30 Whisper Of Soul và duy nhất 1 Key Of Illusion để tẩy";
+		close;
+	}
+	
+	return;
+Ready:
+	next;
+	mes "[Ancient Ghost]";
+	mes "Ngươi đã chắc chắn chưa ?";
+	if(select("Rồi", "Chưa") == 2) {
+		mes "[Ancient Ghost]";
+		mes "Hãy quay lại khi đã chắc chắn";
+		close;
+	}
+	return;
+}
+
+
+
+//========================================================
+//					Duplicates
+//========================================================
+lib_in,49,243,0	duplicate(BSDup)	K? sách#0	HIDDEN_NPC
+lib_in,57,242,0	duplicate(BSDup)	K? sách#1	HIDDEN_NPC
+lib_in,60,225,0	duplicate(BSDup)	K? sách#2	HIDDEN_NPC
+lib_in,46,234,0	duplicate(BSDup)	K? sách#3	HIDDEN_NPC
+lib_in,50,218,0	duplicate(BDup)	Cu?n sách#4	HIDDEN_NPC
+lib_in,45,211,0	duplicate(BDup)	Cu?n sách#5	HIDDEN_NPC
+lib_in,43,211,0	duplicate(BDup)	Cu?n sách#6	HIDDEN_NPC
+
+lib_in,234,182,1	duplicate(TXDup)	TrapX#1	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#2	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#3	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#4	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#5	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#6	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#7	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#8	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#9	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#10	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#11	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#12	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#13	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#14	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#15	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#16	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#17	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#18	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#19	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TXDup)	TrapX#0	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TYDup)	TrapY#1	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TYDup)	TrapY#2	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TYDup)	TrapY#3	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TYDup)	TrapY#4	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TYDup)	TrapY#0	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TZDup)	TrapZ#1	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TZDup)	TrapZ#2	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TZDup)	TrapZ#3	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TZDup)	TrapZ#4	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TZDup)	TrapZ#5	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TZDup)	TrapZ#6	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TZDup)	TrapZ#7	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TZDup)	TrapZ#8	FAKE_NPC,0,0
+lib_in,234,182,1	duplicate(TZDup)	TrapZ#0	FAKE_NPC,0,0
+
+
+//=================================================
+// 					Mapflag
+//=================================================
+lib_in	mapflag	nomemo
+lib_in	mapflag	noteleport
+lib_in	mapflag	monster_noteleport
+lib_in	mapflag	nocommand
